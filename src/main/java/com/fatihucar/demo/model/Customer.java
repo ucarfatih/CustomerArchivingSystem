@@ -30,7 +30,7 @@ public class Customer {
 	@Column(name = "email")
 	private String email;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Folder> folders;
 

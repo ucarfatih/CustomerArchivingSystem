@@ -1,5 +1,8 @@
-insert into user(id,name)
-VALUES(1,'admin');
+insert into user(name)
+VALUES('admin');
+insert into user(name)
+VALUES('test');
+
 
 insert into customer(id,name,surname,email)
 VALUES(1,'Fatih','Uçar','fatih.ucar@me');

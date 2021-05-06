@@ -36,7 +36,7 @@ public class FolderController {
 	public ResponseEntity<Folder> getFolderById(@PathVariable(value = "id") Long folderId)
 			throws ResourceNotFoundException {
 		final Folder folder = folderRepository.findById(folderId)
-				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_CUSTOMER + folderId));
+				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_FOLDER + folderId));
 		return ResponseEntity.ok().body(folder);
 	}
 
@@ -49,10 +49,21 @@ public class FolderController {
 	public ResponseEntity<Folder> updateFolder(@PathVariable(value = "id") Long folderId,
 			@RequestBody Folder updatedFolder) throws ResourceNotFoundException {
 		final Folder folder = folderRepository.findById(folderId)
-				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_CUSTOMER + folderId));
+				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_FOLDER + folderId));
 		updatedFolder.setId(folder.getId());
 		return ResponseEntity.ok().body(folderRepository.save(updatedFolder));
 
+	}
+
+	@DeleteMapping(path = "/folder/{id}")
+	public Map<String, Boolean> deleteFolder(@PathVariable(value = "id") Long folderId)
+			throws ResourceNotFoundException {
+		final Folder folder = folderRepository.findById(folderId)
+				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_FOLDER + folderId));
+		folderRepository.delete(folder);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put(Constants.DELETED, Boolean.TRUE);
+		return response;
 	}
 
 }
