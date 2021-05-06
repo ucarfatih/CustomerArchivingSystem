@@ -38,7 +38,7 @@ public class CustomerController {
 	public ResponseEntity<Customer> getCustomerById(@PathVariable(value = "id") Long customerId)
 			throws NotFoundException, ResourceNotFoundException {
 		final Customer customer = customerRepository.findById(customerId)
-				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG + customerId));
+				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_CUSTOMER + customerId));
 		return ResponseEntity.ok().body(customer);
 	}
 
@@ -51,7 +51,7 @@ public class CustomerController {
 	public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "id") Long customerId,
 			@RequestBody Customer updatedCustomer) throws ResourceNotFoundException {
 		final Customer customer = customerRepository.findById(customerId)
-				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG + customerId));
+				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_CUSTOMER + customerId));
 		updatedCustomer.setId(customer.getId());
 		return ResponseEntity.ok().body(customerRepository.save(updatedCustomer));
 
@@ -61,7 +61,7 @@ public class CustomerController {
 	public Map<String, Boolean> deleteCustomer(@PathVariable(value = "id") Long customerId)
 			throws ResourceNotFoundException {
 		final Customer customer = customerRepository.findById(customerId)
-				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG + customerId));
+				.orElseThrow(() -> new ResourceNotFoundException(Constants.ERR_MSG_CUSTOMER + customerId));
 		customerRepository.delete(customer);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put(Constants.DELETED, Boolean.TRUE);
